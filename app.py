@@ -2,6 +2,7 @@
 from os import path
 import logging
 from configparser import ConfigParser
+import gettext
 
 import kerberos
 import bottle
@@ -30,6 +31,11 @@ if log_filename := config['logging'].get('filename'):
     logging.basicConfig(format=LOG_FORMAT, level=LOG_LEVEL, filename=log_filename)
 else:
     logging.basicConfig(format=LOG_FORMAT, level=LOG_LEVEL)
+
+# Setting the web interface language
+LANG_CODE = config['webpage'].get('language', 'en')
+lang = gettext.translation('base', localedir='locales', languages=[LANG_CODE])
+_ = lang.gettext
 
 
 @route('/<filepath:path>')
@@ -61,20 +67,26 @@ def post_index():
     new_password, new_password_confirmation = form('new-password'), form('confirm-password')
 
     if not all((username, old_password, new_password, new_password_confirmation)):
-        return error("Ошибка — заполните требуемые поля формы")
+        return error(_("Error — please fill in the required form fields"))
 
     if new_password != new_password_confirmation:
-        return error("Ошибка: подтверждение пароля не совпадает с паролем")
+        return error(_("Error: password confirmation does not match the password"))
 
     if username in PROTECTED_USERS:
-        logging.warning(f"[{requester_ip}] Попытка изменить пароль защищённого пользователя {username}")
-        return error("Ошибка: указанный пользователь защищён от изменений")
+        logging.warning(
+            f"[{requester_ip}] " +
+            _("Attempting to change password of the protected user {username}").format(username=username)
+        )
+        return error(_("Error: the specified user is protected from changes"))
 
     try:
         username_with_realm = f"{username}@{KERBEROS_REALM}"
         result = kerberos.changePassword(username_with_realm, old_password, new_password)
     except kerberos.PwdChangeError as e:
-        logging.warning(f"[{requester_ip}] Неудачная попытка изменить пароль для пользователя {username}: {e}")
+        logging.warning(
+            f"[{requester_ip}] " +
+            _("Unsuccessful attempt to change password for user {username}: {e}").format(username=username, e=e)
+        )
 
         if isinstance(e.args[0], tuple):
             err_msg, err_code = e.args[0]
@@ -82,27 +94,42 @@ def post_index():
             err_msg, err_code = e.args
 
         if err_code == -1765328378:
-            return error("Ошибка: пользователь с указанным именем не найден")
+            return error(_("Error: the user with the specified name was not found"))
         elif err_code == -1765328366:
-            return error("Ошибка: учётные данные пользователя были отозваны — "
-                         "убедитесь, что пользователь не заблокирован в домене")
+            return error(
+                _("Error: the user's credentials were revoked — make sure that the user is not blocked in the domain"))
         elif err_code == -1765328360:
-            return error("Ошибка аутентификации: убедитесь, что старый пароль введён верно")
+            return error(_("Authentication failed: make sure old password is correct"))
         elif err_code == 4:
-            return error("Изменение пароля отклонено. Это могло произойти по причине слишком частой его смены "
-                         "либо его несоответствия политикам безопасности домена")
+            return error(_("Password change rejected. This could have happened due to its too frequent change or "
+                           "its inconsistency with domain security policies"))
         else:
-            return error(f"Неизвестная ошибка: {err_msg} ({err_code})")
+            return error(_("Unknown error: {err_msg} ({err_code})").format(err_msg=err_msg, err_code=err_code))
 
     if result:
-        logging.info(f"[{requester_ip}] Пароль успешно изменён для пользователя {username}")
-        return index_template(alerts=[('success', "Пароль успешно изменён")])
+        logging.info(
+            f"[{requester_ip}] " +
+            _("Password changed successfully for user {username}").format(username=username)
+        )
+        return index_template(alerts=[('success', _("The password was successfully changed"))])
     else:
-        logging.warning(f"[{requester_ip}] Пароль не был изменён по неизвестной причине для пользователя {username}")
-        return error(f"Ошибка: пароль не был изменён по неизвестной причине — обратитесь к администратору")
+        logging.warning(
+            f"[{requester_ip}] " +
+            _("The password was not changed for an unknown reason for the user {username}").format(username=username)
+        )
+        return error(_("Error: the password was not changed for an unknown reason — contact your administrator"))
 
 
 SimpleTemplate.defaults.update(dict(config['webpage']))
+SimpleTemplate.defaults.update(
+    {
+        'text_username': _("Username"),
+        'text_old_password': _("Old password"),
+        'text_new_password': _("New password"),
+        'text_new_password_confirmation': _("Confirm new password"),
+        'text_update_password': _("Update password")
+    }
+)
 
 if __name__ == '__main__':
     bottle.run(**config['webserver'])

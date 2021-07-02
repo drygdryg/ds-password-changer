@@ -21,21 +21,21 @@
       <form method="post">
         <div class="form-floating mb-3">
           <input id="username" class="form-control" name="username" value="{{ get('username', '') }}" type="text" placeholder="username" required autofocus>
-          <label for="username" class="form-label">Имя пользователя</label>
+          <label for="username" class="form-label">{{ text_username }}</label>
         </div>
         <div class="form-floating mb-3">
           <input id="old-password" class="form-control" name="old-password" type="password" placeholder="Пароль" required>
-          <label for="old-password" class="form-label">Старый пароль</label>
+          <label for="old-password" class="form-label">{{ text_old_password }}</label>
         </div>
         <div class="form-floating mb-3">
           <input id="new-password" class="form-control" name="new-password" type="password" placeholder="Новый пароль" required>
-          <label for="new-password" class="form-label">Новый пароль</label>
+          <label for="new-password" class="form-label">{{ text_new_password }}</label>
         </div>
         <div class="form-floating mb-3">
           <input id="confirm-password" class="form-control" name="confirm-password" type="password" placeholder="Подтверждение нового пароля" required>
-          <label for="confirm-password" class="form-label">Новый пароль ещё раз</label>
+          <label for="confirm-password" class="form-label">{{ text_new_password_confirmation }}</label>
         </div>
-        <button type="submit" class="btn btn-primary">Изменить пароль</button>
+        <button type="submit" class="btn btn-primary">{{ text_update_password }}</button>
       </form>
     </main>
   </body>

@@ -1,0 +1,70 @@
+# Copyright (C) 2021 Victor Golovanenko
+# Victor Golovanenko <drygdryg2014 at yandex dot com>, 2021.
+#
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2021-07-02 10:42+0300\n"
+"PO-Revision-Date: 2021-07-02 10:42+0300\n"
+"Last-Translator: Victor Golovanenko <drygdryg2014 at yandex dot com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+msgid "Error — please fill in the required form fields"
+msgstr ""
+
+msgid "Error: password confirmation does not match the password"
+msgstr ""
+
+msgid "Attempting to change password of the protected user {username}"
+msgstr ""
+
+msgid "Error: the specified user is protected from changes"
+msgstr ""
+
+msgid "Unsuccessful attempt to change password for user {username}: {e}"
+msgstr ""
+
+msgid "Error: the user with the specified name was not found"
+msgstr ""
+
+msgid "Error: the user's credentials were revoked — make sure that the user is not blocked in the domain"
+msgstr ""
+
+msgid "Authentication failed: make sure old password is correct"
+msgstr ""
+
+msgid "Password change rejected. This could have happened due to its too frequent change or its inconsistency with domain security policies"
+msgstr ""
+
+msgid "Unknown error: {err_msg} ({err_code})"
+msgstr ""
+
+msgid "Password changed successfully for user {username}"
+msgstr ""
+
+msgid "The password was successfully changed"
+msgstr ""
+
+msgid "The password was not changed for an unknown reason for the user {username}"
+msgstr ""
+
+msgid "Error: the password was not changed for an unknown reason — contact your administrator"
+msgstr ""
+
+msgid "Username"
+msgstr ""
+
+msgid "Old password"
+msgstr ""
+
+msgid "New password"
+msgstr ""
+
+msgid "Confirm new password"
+msgstr ""
+
+msgid "Update password"
+msgstr ""
