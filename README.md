@@ -77,3 +77,4 @@ Finally, check the availability of the web interface on the specified domain nam
 ## Acknowledgements
 - `jirutka` for the [ldap-passwd-webui](https://github.com/jirutka/ldap-passwd-webui)
 - Arch Linux community for the [Active Directory integration article](https://wiki.archlinux.org/title/Active_Directory_integration)
+- `bosha` for [this article](https://the-bosha.ru/2017/01/04/zapusk-flask-prilozheniia-c-uwsgi-virtualenv-i-nginx/)
