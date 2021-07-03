@@ -7,6 +7,7 @@ It uses the Kerberos protocol to communicate with the directory service and test
 - Supports multiple web interface languages
 - Has responsive design and works on mobiles, tablets, and desktops
 - Does not use any administrative accounts — works like a local workstation connected to a domain
+- Allows you to change expired passwords
 - Communicates with a directory service over the network — it can be deployed anywhere with network access to directory service
 ### Screenshot
 ![Web UI screenshot](doc/web_ui_screenshot.png)
