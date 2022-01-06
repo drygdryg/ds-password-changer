@@ -11,7 +11,7 @@
   </head>
   <body class="text-center">
     <main class="form-change-password">
-      <h3>{{ page_title }}</h3>
+      <h3 class="mb-3">{{ page_title }}</h3>
       %for type, text in get('alerts', []):
           <div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
             {{ text }}
