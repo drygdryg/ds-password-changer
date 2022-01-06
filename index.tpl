@@ -6,7 +6,7 @@
     <meta name="robots" content="noindex, nofollow">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <title>{{ page_title }}</title>
   </head>
   <body class="text-center">
