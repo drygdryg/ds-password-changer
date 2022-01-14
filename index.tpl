@@ -18,21 +18,22 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Скрыть"></button>
           </div>
       %end
-      <form method="post">
+      <form method="post"
+            oninput='confirm_password.setCustomValidity(confirm_password.value !== new_password.value ? "{{ text_invalid_password_confirmation }}" : "")'>
         <div class="form-floating mb-3">
           <input id="username" class="form-control" name="username" value="{{ get('username', '') }}" type="text" placeholder="username" required autofocus>
           <label for="username" class="form-label">{{ text_username }}</label>
         </div>
         <div class="form-floating mb-3">
-          <input id="old-password" class="form-control" name="old-password" type="password" placeholder="Пароль" required>
+          <input id="old-password" class="form-control" name="old_password" type="password" placeholder="Пароль" required>
           <label for="old-password" class="form-label">{{ text_old_password }}</label>
         </div>
         <div class="form-floating mb-3">
-          <input id="new-password" class="form-control" name="new-password" type="password" placeholder="Новый пароль" required>
+          <input id="new-password" class="form-control" name="new_password" type="password" placeholder="Новый пароль" required>
           <label for="new-password" class="form-label">{{ text_new_password }}</label>
         </div>
         <div class="form-floating mb-3">
-          <input id="confirm-password" class="form-control" name="confirm-password" type="password" placeholder="Подтверждение нового пароля" required>
+          <input id="confirm-password" class="form-control" name="confirm_password" type="password" placeholder="Подтверждение нового пароля" required>
           <label for="confirm-password" class="form-label">{{ text_new_password_confirmation }}</label>
         </div>
         <button type="submit" class="btn btn-primary">{{ text_update_password }}</button>

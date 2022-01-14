@@ -63,8 +63,8 @@ def post_index():
 
     requester_ip = request.remote_addr
     form = request.forms.getunicode
-    username, old_password = form('username'), form('old-password')
-    new_password, new_password_confirmation = form('new-password'), form('confirm-password')
+    username, old_password = form('username'), form('old_password')
+    new_password, new_password_confirmation = form('new_password'), form('confirm_password')
 
     if not all((username, old_password, new_password, new_password_confirmation)):
         return error(_("Error — please fill in the required form fields"))
@@ -127,7 +127,8 @@ SimpleTemplate.defaults.update(
         'text_old_password': _("Old password"),
         'text_new_password': _("New password"),
         'text_new_password_confirmation': _("Confirm new password"),
-        'text_update_password': _("Update password")
+        'text_update_password': _("Update password"),
+        'text_invalid_password_confirmation': _("Error: password confirmation does not match the password")
     }
 )
 
